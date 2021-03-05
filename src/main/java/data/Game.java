@@ -45,8 +45,5 @@ public class Game {
         } while (!Map.isCellValid(x, y));
         Map.move(x, y, Config.DOT_X);
     }
-
-
-
 }
 

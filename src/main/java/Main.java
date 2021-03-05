@@ -10,6 +10,5 @@ public class Main {
         printMap();
         Game.letsGo();
     }
-
 }
 

@@ -146,6 +146,5 @@ public class CombLists {
             System.out.println("");
         }
     }
-
 }
 

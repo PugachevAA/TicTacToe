@@ -22,6 +22,5 @@ public class Position {
     public int getSymbol() {
         return symbol;
     }
-
 }
 

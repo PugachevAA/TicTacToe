@@ -61,6 +61,5 @@ public class Ai {
         Map.move(x, y, Config.DOT_O);
         System.out.println("Компьютер походил в точку: " + (x + 1) + " " + (y + 1));
     }
-
 }
 

@@ -2,7 +2,7 @@ package data;
 
 public class Map {
 
-    public static char[][] map;
+    private static char[][] map;
     private static int size = Config.SIZE;
 
     public static void initMap() {
@@ -12,6 +12,9 @@ public class Map {
                 map[i][j] = Config.DOT_EMPTY;
             }
         }
+    }
+    public static char getSymbol(int x, int y) {
+        return map[y][x];
     }
 
     public static void printMap() {

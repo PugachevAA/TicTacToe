@@ -5,7 +5,7 @@ import ai.Ai;
 import java.util.Scanner;
 
 public class Game {
-    static CombLists combLists;
+    private static CombLists combLists;
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -36,7 +36,7 @@ public class Game {
         }
     }
 
-    public static void humanTurn() {
+    private static void humanTurn() {
         int x, y;
         do {
             System.out.println("Ваш ход (в формате X Y):");

@@ -43,7 +43,6 @@ public class Game {
             y = scanner.nextInt() - 1;
         } while (!Map.isCellValid(x, y));
         Map.move(x, y, Config.DOT_X);
-        Ai.lastHumanMove = new Position(x, y);
     }
 
     //Проверяем все возможные комбинации на поле

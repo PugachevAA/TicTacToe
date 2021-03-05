@@ -13,5 +13,6 @@ public class Comb {
     }
     public void addPosition(Position pos) {
         combination.add(pos);
-    } 
+    }
+    
 }

@@ -13,4 +13,5 @@ public class Position {
         this.y = pos.y;
         this.symbol = symb;
     }
+
 }

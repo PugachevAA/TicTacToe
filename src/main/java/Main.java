@@ -1,3 +1,5 @@
+import data.Game;
+
 import static data.Config.initSettings;
 import static data.Map.*;
 
@@ -8,4 +10,6 @@ public class Main {
         printMap();
         Game.letsGo();
     }
+
 }
+

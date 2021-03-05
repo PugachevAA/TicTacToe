@@ -22,4 +22,6 @@ public class Config {
             Config.DOTS_TO_WIN = scanner.nextInt();
         } while (Config.DOTS_TO_WIN > Config.SIZE && Config.DOTS_TO_WIN < 2);
     }
+
 }
+

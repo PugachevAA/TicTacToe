@@ -1,8 +1,8 @@
 package data;
 
 public class Position {
-    public int x, y;
-    public char symbol;
+    private int x, y;
+    private char symbol;
 
     public Position(int x, int y) {
         this.x = x;
@@ -13,4 +13,15 @@ public class Position {
         this.y = pos.y;
         this.symbol = symb;
     }
+    public int getPositionX() {
+        return x;
+    }
+    public int getPositionY() {
+        return y;
+    }
+    public int getSymbol() {
+        return symbol;
+    }
+
 }
+

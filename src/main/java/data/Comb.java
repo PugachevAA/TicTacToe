@@ -3,7 +3,7 @@ package data;
 import java.util.ArrayList;
 
 public class Comb {
-    public ArrayList<Position> combination;
+    private ArrayList<Position> combination;
 
     public Comb() {
         combination = new ArrayList<>();
@@ -13,5 +13,10 @@ public class Comb {
     }
     public void addPosition(Position pos) {
         combination.add(pos);
-    } 
+    }
+    public ArrayList<Position> getComb() {
+        return combination;
+    }
+
 }
+

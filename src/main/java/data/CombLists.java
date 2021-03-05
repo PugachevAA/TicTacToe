@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 //Класс списков выигрышных и предвыигрышных комбинаций
 public class CombLists {
-    public ArrayList<Comb> winCombsList;
-    public ArrayList<Comb> preWinCombsList;
+    private static ArrayList<Comb> winCombsList;
+    private static ArrayList<Comb> preWinCombsList;
 
     //Конструктор использованием вложенных методов инициализации каждого списка
     public CombLists() {
@@ -14,11 +14,17 @@ public class CombLists {
         initWinCombs();
         initPreWinCombs();
     }
+    public static ArrayList<Comb> getWinCombsList() {
+        return winCombsList;
+    }
+    public static ArrayList<Comb> getPreWinCombsList() {
+        return preWinCombsList;
+    }
 
     //заполняем список всеми возможными выигрышными комбинациями,
     //пробегаясь по всем горизонталям, вертикалям и диагоналям
     //(по побочным без учета диагоналей короче длины выигрышной комбинации)
-    public void initWinCombs() {
+    private void initWinCombs() {
         Comb winCombo;
         int winLen = Config.DOTS_TO_WIN;
         int len = Config.SIZE-1;
@@ -57,7 +63,7 @@ public class CombLists {
             }
             winCombsList.add(winCombo);
         }
-        //Побочные диагонали
+        //Побочные диагонали исключая те, которые короче длины выигрышной комбинации
         for (int x = 1; x <= size - winLen; x++) {
             for (int y = 0; y <= size - winLen - x; y++) {
                 winCombo = new Comb();
@@ -91,15 +97,31 @@ public class CombLists {
     //на основе списка выигрышных комбинаций составляем список всех предвыигрышных комбинаций
     //поочередно убирая из каждой выигрышной комбинации по одной из позиций по очереди
     //и добавляя в новый список полученную комбинацию
-    public void initPreWinCombs() {
+    private void initPreWinCombs() {
         Comb winCombo;
         for (int i = 0; i < winCombsList.size(); i++) {
-            for (int j = 0; j < winCombsList.get(i).combination.size(); j++) {
-                winCombo = new Comb((ArrayList) winCombsList.get(i).combination.clone());
-                winCombo.combination.set(j, new Position(winCombo.combination.get(j), Config.DOT_AI));
+            for (int j = 0; j < winCombsList.get(i).getComb().size(); j++) {
+                winCombo = new Comb((ArrayList) winCombsList.get(i).getComb().clone());
+                winCombo.getComb().set(j, new Position(winCombo.getComb().get(j), Config.DOT_AI));
                 preWinCombsList.add(winCombo);
             }
         }
+    }
+    //Проверяем все возможные комбинации на поле
+    //Если по одной из комбинаций на поле проверяемый символ - возвращаяем победу
+    public boolean checkWin(char symb) {
+        int x, y;
+        int winCount = 0;
+        for (int i = 0; i < winCombsList.size(); i++) {
+            for (int j = 0; j < winCombsList.get(i).getComb().size(); j++){
+                x = winCombsList.get(i).getComb().get(j).getPositionX();
+                y = winCombsList.get(i).getComb().get(j).getPositionY();
+                if (Map.getSymbol(x,y) == symb) winCount++;
+            }
+            if (winCount == Config.DOTS_TO_WIN) return true;
+            winCount = 0;
+        }
+        return false;
     }
 
 
@@ -109,8 +131,8 @@ public class CombLists {
     public void printWinCombs() {
         System.out.println("Выигрышные");
         for (int i = 0; i < winCombsList.size(); i++){
-            for (int j = 0; j < winCombsList.get(i).combination.size(); j ++) {
-                System.out.print(winCombsList.get(i).combination.get(j).x + "" + winCombsList.get(i).combination.get(j).y + " ");
+            for (int j = 0; j < winCombsList.get(i).getComb().size(); j ++) {
+                System.out.print(winCombsList.get(i).getComb().get(j).getPositionX() + "" + winCombsList.get(i).getComb().get(j).getPositionY() + " ");
             }
             System.out.println("");
         }
@@ -118,10 +140,12 @@ public class CombLists {
     public void printPreWinCombs() {
         System.out.println("Предыигрышные");
         for (int i = 0; i < winCombsList.size(); i++){
-            for (int j = 0; j < winCombsList.get(i).combination.size(); j ++) {
-                System.out.print(winCombsList.get(i).combination.get(j).x + "" + winCombsList.get(i).combination.get(j).y + " ");
+            for (int j = 0; j < winCombsList.get(i).getComb().size(); j ++) {
+                System.out.print(winCombsList.get(i).getComb().get(j).getPositionX() + "" + winCombsList.get(i).getComb().get(j).getPositionY() + " ");
             }
             System.out.println("");
         }
     }
+
 }
+

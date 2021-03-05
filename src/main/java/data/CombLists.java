@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 //Класс списков выигрышных и предвыигрышных комбинаций
 public class CombLists {
-    public ArrayList<Comb> winCombsList;
-    public ArrayList<Comb> preWinCombsList;
+    public static ArrayList<Comb> winCombsList;
+    public static ArrayList<Comb> preWinCombsList;
 
     //Конструктор использованием вложенных методов инициализации каждого списка
     public CombLists() {
@@ -13,6 +13,12 @@ public class CombLists {
         preWinCombsList = new ArrayList<>();
         initWinCombs();
         initPreWinCombs();
+    }
+    public static ArrayList<Comb> getWinCombsList() {
+        return winCombsList;
+    }
+    public static ArrayList<Comb> getPreWinCombsList() {
+        return preWinCombsList;
     }
 
     //заполняем список всеми возможными выигрышными комбинациями,
@@ -57,7 +63,7 @@ public class CombLists {
             }
             winCombsList.add(winCombo);
         }
-        //Побочные диагонали
+        //Побочные диагонали исключая те, которые короче длины выигрышной комбинации
         for (int x = 1; x <= size - winLen; x++) {
             for (int y = 0; y <= size - winLen - x; y++) {
                 winCombo = new Comb();
@@ -100,6 +106,22 @@ public class CombLists {
                 preWinCombsList.add(winCombo);
             }
         }
+    }
+    //Проверяем все возможные комбинации на поле
+    //Если по одной из комбинаций на поле проверяемый символ - возвращаяем победу
+    public boolean checkWin(char symb) {
+        int x, y;
+        int winCount = 0;
+        for (int i = 0; i < winCombsList.size(); i++) {
+            for (int j = 0; j < winCombsList.get(i).combination.size(); j++){
+                x = winCombsList.get(i).combination.get(j).x;
+                y = winCombsList.get(i).combination.get(j).y;
+                if (Map.map[y][x] == symb) winCount++;
+            }
+            if (winCount == Config.DOTS_TO_WIN) return true;
+            winCount = 0;
+        }
+        return false;
     }
 
 

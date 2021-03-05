@@ -3,16 +3,13 @@ package ai;
 import java.util.ArrayList;
 import java.util.Random;
 
-import data.CombLists;
-import data.Config;
-import data.Map;
-import data.Position;
+import data.*;
 
 public class Ai {
-    static CombLists comblistsAi = new CombLists();
+    static ArrayList<Comb> preWinCombList = CombLists.getPreWinCombsList();
+
     static ArrayList<Position> movesToClose;
-    public static Position lastHumanMove;
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     public Ai() {
         movesToClose = new ArrayList<>();
@@ -23,21 +20,20 @@ public class Ai {
         int x, y;
         int potX = -1, potY = -1;
         int count = 0;
-        for (int i = 0; i < comblistsAi.preWinCombsList.size(); i++) {
-            for (int j = 0; j < comblistsAi.preWinCombsList.get(i).combination.size(); j++) {
-                x = comblistsAi.preWinCombsList.get(i).combination.get(j).x;
-                y = comblistsAi.preWinCombsList.get(i).combination.get(j).y;
+        for (int i = 0; i < preWinCombList.size(); i++) {
+            for (int j = 0; j < preWinCombList.get(i).combination.size(); j++) {
+                x = preWinCombList.get(i).combination.get(j).x;
+                y = preWinCombList.get(i).combination.get(j).y;
                 if (Map.map[y][x] == symb) {
                     count++;
                 }
-                if (comblistsAi.preWinCombsList.get(i).combination.get(j).symbol == Config.DOT_AI &&
+                if (preWinCombList.get(i).combination.get(j).symbol == Config.DOT_AI &&
                     Map.map[y][x] == Config.DOT_EMPTY) {
-                    potX = comblistsAi.preWinCombsList.get(i).combination.get(j).x;
-                    potY = comblistsAi.preWinCombsList.get(i).combination.get(j).y;
-
+                    potX = preWinCombList.get(i).combination.get(j).x;
+                    potY = preWinCombList.get(i).combination.get(j).y;
                 }
             }
-            if (count == comblistsAi.preWinCombsList.get(i).combination.size() - 1 && potX != -1) {
+            if (count == preWinCombList.get(i).combination.size() - 1 && potX != -1) {
                 potencialMoves.add(new Position(potX, potY));
             }
             count = 0;

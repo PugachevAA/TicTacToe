@@ -1,5 +1,6 @@
+package data;
+
 import ai.Ai;
-import data.*;
 
 import java.util.Scanner;
 
@@ -10,11 +11,11 @@ public class Game {
 
     //Поиграем?))
     public static void letsGo() {
+        combLists = new CombLists();
         while (true) {
-            combLists = new CombLists();
             humanTurn();
             Map.printMap();
-            if (checkWin(Config.DOT_X)) {
+            if (combLists.checkWin(Config.DOT_X)) {
                 System.out.println("Хомосапиенс победил ;)");
                 break;
             }
@@ -24,7 +25,7 @@ public class Game {
             }
             Ai.computerTurn();
             Map.printMap();
-            if (checkWin(Config.DOT_O)) {
+            if (combLists.checkWin(Config.DOT_O)) {
                 System.out.println("Компуктер победил ;(");
                 break;
             }
@@ -45,22 +46,7 @@ public class Game {
         Map.move(x, y, Config.DOT_X);
     }
 
-    //Проверяем все возможные комбинации на поле
-    //Если по одной из комбинаций на поле проверяемый символ - возвращаяем победу
-    public static boolean checkWin(char symb) {
-        int x, y;
-        int winCount = 0;
-        for (int i = 0; i < combLists.winCombsList.size(); i++) {
-            for (int j = 0; j < combLists.winCombsList.get(i).combination.size(); j++){
-                x = combLists.winCombsList.get(i).combination.get(j).x;
-                y = combLists.winCombsList.get(i).combination.get(j).y;
-                if (Map.map[y][x] == symb) winCount++;
-            }
-            if (winCount == Config.DOTS_TO_WIN) return true;
-            winCount = 0;
-        }
-        return false;
-    }
+
 
 }
 

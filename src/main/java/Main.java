@@ -1,3 +1,5 @@
+import data.Game;
+
 import static data.Config.initSettings;
 import static data.Map.*;
 

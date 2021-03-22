@@ -7,6 +7,7 @@ import data.*;
 import domain.MatrixCoordinate;
 import enums.DotType;
 
+
 public class Ai {
     private static ArrayList<Comb> preWinCombList = CombLists.getPreWinCombsList();
     private static ArrayList<Position> movesToClose;

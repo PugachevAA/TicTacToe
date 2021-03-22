@@ -1,5 +1,6 @@
 package gui;
 
+
 import data.Config;
 import enums.DotType;
 

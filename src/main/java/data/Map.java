@@ -1,19 +1,30 @@
 package data;
 
-public class Map {
+import enums.DotType;
 
-    private static char[][] map;
-    private static int size = Config.SIZE;
+import static enums.DotType.EMPTY;
 
-    public static void initMap() {
-        map = new char[size][size];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                map[i][j] = Config.DOT_EMPTY;
+public class Map implements MapService{
+
+    private static DotType[][] map;
+    private static int size;
+
+    public Map (int size) {
+        initMap(size);
+        printMap();
+    }
+
+    @Override
+    public void initMap(int mapSize) {
+        size = mapSize;
+        map = new DotType[mapSize][mapSize];
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                map[i][j] = EMPTY;
             }
         }
     }
-    public static char getSymbol(int x, int y) {
+    public static DotType getSymbol(int x, int y) {
         return map[y][x];
     }
 
@@ -32,22 +43,22 @@ public class Map {
         System.out.println("");
     }
 
-    public static void move(int x, int y, char dot) {
+    public static void move(int x, int y, DotType dot) {
         map[y][x] = dot;
     }
 
-    public static boolean mapIsFull() {
+    public boolean mapIsFull() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (map[i][j] == Config.DOT_EMPTY) return false;
+                if (map[i][j] == EMPTY) return false;
             }
         }
         return true;
     }
 
     public static boolean isCellValid(int x, int y) {
-        if (x < 0 || x >= Config.SIZE || y < 0 || y >= Config.SIZE
-                || Map.map[y][x] != Config.DOT_EMPTY) {
+        if (x < 0 || x >= size || y < 0 || y >= size
+                || Map.map[y][x] != EMPTY) {
             return false;
         } else {
             return true;

@@ -17,6 +17,5 @@ public class Comb {
     public ArrayList<Position> getComb() {
         return combination;
     }
-
 }
 

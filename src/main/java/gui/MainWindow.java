@@ -1,5 +1,6 @@
 package gui;
 
+
 import ai.Ai;
 import data.*;
 import domain.MatrixCoordinate;

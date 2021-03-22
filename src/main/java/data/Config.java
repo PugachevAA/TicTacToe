@@ -1,5 +1,6 @@
 package data;
 
+
 import enums.DotType;
 
 public class Config implements ConfigService{

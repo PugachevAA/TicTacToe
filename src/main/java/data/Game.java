@@ -1,5 +1,6 @@
 package data;
 
+
 import static enums.DotType.*;
 
 public class Game implements GameService{

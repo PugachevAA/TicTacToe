@@ -1,5 +1,6 @@
 package data;
 
+
 import enums.DotType;
 
 import java.util.ArrayList;

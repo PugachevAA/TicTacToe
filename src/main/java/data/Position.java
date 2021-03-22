@@ -1,14 +1,16 @@
 package data;
 
+import enums.DotType;
+
 public class Position {
     private int x, y;
-    private char symbol;
+    private DotType symbol;
 
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
-    public Position(Position pos, char symb) {
+    public Position(Position pos, DotType symb) {
         this.x = pos.x;
         this.y = pos.y;
         this.symbol = symb;
@@ -19,7 +21,7 @@ public class Position {
     public int getPositionY() {
         return y;
     }
-    public int getSymbol() {
+    public DotType getSymbol() {
         return symbol;
     }
 }

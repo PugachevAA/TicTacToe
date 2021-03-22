@@ -1,5 +1,7 @@
 package data;
 
+import enums.DotType;
+
 import java.util.ArrayList;
 
 //Класс списков выигрышных и предвыигрышных комбинаций
@@ -8,10 +10,10 @@ public class CombLists {
     private static ArrayList<Comb> preWinCombsList;
 
     //Конструктор использованием вложенных методов инициализации каждого списка
-    public CombLists() {
+    public CombLists(int gridSize, int lenForWin) {
         winCombsList = new ArrayList<>();
         preWinCombsList = new ArrayList<>();
-        initWinCombs();
+        initWinCombs(gridSize, lenForWin);
         initPreWinCombs();
     }
     public static ArrayList<Comb> getWinCombsList() {
@@ -24,11 +26,12 @@ public class CombLists {
     //заполняем список всеми возможными выигрышными комбинациями,
     //пробегаясь по всем горизонталям, вертикалям и диагоналям
     //(по побочным без учета диагоналей короче длины выигрышной комбинации)
-    private void initWinCombs() {
+    private void initWinCombs(int gridSize, int lenForWin) {
         Comb winCombo;
-        int winLen = Config.DOTS_TO_WIN;
-        int len = Config.SIZE-1;
-        int size = Config.SIZE;
+        //int winLen = Config.DOTS_TO_WIN;
+        int winLen = lenForWin;
+        int len = gridSize-1;
+        int size = gridSize;
         //Горизонтальные и вертикальные комбинации
         for (int x = 0; x <= len; x++) {
             for (int y = 0; y <= size - winLen; y++) {
@@ -102,14 +105,14 @@ public class CombLists {
         for (int i = 0; i < winCombsList.size(); i++) {
             for (int j = 0; j < winCombsList.get(i).getComb().size(); j++) {
                 winCombo = new Comb((ArrayList) winCombsList.get(i).getComb().clone());
-                winCombo.getComb().set(j, new Position(winCombo.getComb().get(j), Config.DOT_AI));
+                winCombo.getComb().set(j, new Position(winCombo.getComb().get(j), DotType.getEnemyType(DotType.X)));
                 preWinCombsList.add(winCombo);
             }
         }
     }
     //Проверяем все возможные комбинации на поле
     //Если по одной из комбинаций на поле проверяемый символ - возвращаяем победу
-    public boolean checkWin(char symb) {
+    public boolean checkWin(DotType symb) {
         int x, y;
         int winCount = 0;
         for (int i = 0; i < winCombsList.size(); i++) {

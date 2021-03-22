@@ -1,26 +1,26 @@
 package data;
 
-import java.util.Scanner;
+import enums.DotType;
 
-public class Config {
-    public static final char DOT_X = 'X';
-    public static final char DOT_O = 'O';
-    public static final char DOT_EMPTY = '*';
+public class Config implements ConfigService{
+    public static DotType DOT_HUMAN;
+    public static DotType DOT_COMP;
+    public static final DotType DOT_EMPTY = DotType.EMPTY;
     public static final char DOT_AI = 'b';
 
     public static int SIZE;
     public static int DOTS_TO_WIN;
 
+    public Config (int mapSize, int winLen, DotType dotHuman) {
+        initSettings(mapSize, winLen, dotHuman);
+    }
 
-    private static Scanner scanner = new Scanner(System.in);
-
-    public static void initSettings() {
-        System.out.print("Задайте размер игрового поля: ");
-        Config.SIZE = scanner.nextInt();
-        do {
-            System.out.print("Задайте размер выйгрышной комбинации (от 2 до " + Config.SIZE + "): ");
-            Config.DOTS_TO_WIN = scanner.nextInt();
-        } while (Config.DOTS_TO_WIN > Config.SIZE && Config.DOTS_TO_WIN < 2);
+    @Override
+    public void initSettings(int mapSize, int winLen, DotType dotHuman) {
+        Config.SIZE = mapSize;
+        Config.DOTS_TO_WIN = winLen;
+        Config.DOT_HUMAN = dotHuman;
+        Config.DOT_COMP = DotType.getEnemyType(dotHuman);
     }
 }
 

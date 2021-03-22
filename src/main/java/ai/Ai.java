@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import data.*;
+import domain.MatrixCoordinate;
+import enums.DotType;
 
 public class Ai {
     private static ArrayList<Comb> preWinCombList = CombLists.getPreWinCombsList();
@@ -15,7 +17,7 @@ public class Ai {
         movesToClose = new ArrayList<>();
     }
 
-    private static ArrayList<Position> checkMovesToClose(char symb) {
+    private static ArrayList<Position> checkMovesToClose(DotType symb) {
         ArrayList<Position> potencialMoves = new ArrayList<>();
         int x, y;
         int potX = -1, potY = -1;
@@ -27,8 +29,8 @@ public class Ai {
                 if (Map.getSymbol(x,y) == symb) {
                     count++;
                 }
-                if (preWinCombList.get(i).getComb().get(j).getSymbol() == Config.DOT_AI &&
-                    Map.getSymbol(x,y) == Config.DOT_EMPTY) {
+                if (preWinCombList.get(i).getComb().get(j).getSymbol() == DotType.O &&
+                    Map.getSymbol(x,y) == DotType.EMPTY) {
                     potX = preWinCombList.get(i).getComb().get(j).getPositionX();
                     potY = preWinCombList.get(i).getComb().get(j).getPositionY();
                 }
@@ -43,9 +45,9 @@ public class Ai {
         return potencialMoves;
     }
 
-    public static void computerTurn() {
+    public static MatrixCoordinate computerTurn() {
         int x, y;
-        movesToClose =  checkMovesToClose(Config.DOT_X);
+        movesToClose =  checkMovesToClose(DotType.X);
         if (movesToClose.size() > 0) {
             int n = random.nextInt(movesToClose.size());
             x = movesToClose.get(n).getPositionX();
@@ -55,11 +57,10 @@ public class Ai {
                 x = random.nextInt(Config.SIZE);
                 y = random.nextInt(Config.SIZE);
             } while (!Map.isCellValid(x, y));
-            Map.move(x, y, Config.DOT_O);
-            System.out.println("Компьютер походил в точку: " + (x + 1) + " " + (y + 1));
         }
-        Map.move(x, y, Config.DOT_O);
+        Map.move(x, y, DotType.O);
         System.out.println("Компьютер походил в точку: " + (x + 1) + " " + (y + 1));
+        return new MatrixCoordinate(y, x);
     }
 }
 
